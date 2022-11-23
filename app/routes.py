@@ -4,6 +4,7 @@ from app.forms import LoginForm, RegistrationForm
 from flask_login import current_user, login_user, logout_user, login_required
 from app.models import User
 from werkzeug.urls import url_parse
+import time
 
 
 @app.route('/')
@@ -67,4 +68,10 @@ def register():
         db.session.commit()
         flash('Congratulations, you are now a registered user!')
         return redirect(url_for('login'))
-    return render_template('register.html', title='Register', form=form)
+    return render_template('register.html', title='Registration', form=form)
+
+
+@app.route('/contact')
+@login_required
+def contact():
+    return render_template('contact.html', title='Contact')
