@@ -14,7 +14,7 @@ def index():
     posts = [
         {
             'author': {'username': 'John'},
-            'body': 'Beautiful Russia!'
+            'body': '123'
         },
         {
             'author': {'username': 'Nikita'},
@@ -22,11 +22,11 @@ def index():
         },
         {
             'author': {'username': 'Darya'},
-            'body': 'I love you'
+            'body': '12345'
         },
         {
             'author': {'username': 'Ninja'},
-            'body': 'I ninja'
+            'body': '123456789'
         }
     ]
     return render_template("index.html", title='Home Page', posts=posts)
@@ -75,3 +75,23 @@ def register():
 @login_required
 def contact():
     return render_template('contact.html', title='Contact')
+
+
+@app.route('/accounts')
+@login_required
+def accounts():
+    posts = [
+        {
+            'user': {'username': 'Nikita'},
+        },
+        {
+            'user': {'username': 'Darya'},
+        },
+        {
+            'user': {'username': 'Maxim'}
+        },
+        {
+            'user': {'username': 'Ninja'},
+        }
+    ]
+    return render_template("account.html", title="Accounts", posts=posts)
