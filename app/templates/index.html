@@ -1,8 +1,12 @@
 {% extends "base.html" %}
 
 {% block app_content %}
-    <h1>Hello, {{ current_user.username }}!</h1><br>
-    {% for post in posts %}
-    <div><p>{{ post.author.username }} says: <b>{{ post.body }}.</b></p></div>
-    {% endfor %}
+    <h1>Hello, {{ current_user.username }}!</h1>
+    <div>
+        <b>You have come to my blog, my name is Nikita, I am 17 years old.<br>
+        I am studying in college as a Programmer.<br>
+        I developed this blog in Python and Framework Flask.<br>
+        The site has a form of authorization and registration, sessions are supported.<br>
+        There are contacts and accounts.</b>
+    </div>
 {% endblock %}

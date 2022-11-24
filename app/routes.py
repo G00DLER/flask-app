@@ -11,25 +11,7 @@ import time
 @app.route('/index')
 @login_required
 def index():
-    posts = [
-        {
-            'author': {'username': 'John'},
-            'body': '123'
-        },
-        {
-            'author': {'username': 'Nikita'},
-            'body': 'Hello'
-        },
-        {
-            'author': {'username': 'Darya'},
-            'body': '12345'
-        },
-        {
-            'author': {'username': 'Ninja'},
-            'body': '123456789'
-        }
-    ]
-    return render_template("index.html", title='Home Page', posts=posts)
+    return render_template("index.html", title='Home Page')
 
 
 @app.route("/login", methods=['GET', 'POST'])
