@@ -4,7 +4,6 @@ from app.forms import LoginForm, RegistrationForm
 from flask_login import current_user, login_user, logout_user, login_required
 from app.models import User
 from werkzeug.urls import url_parse
-import time
 
 
 @app.route('/')
