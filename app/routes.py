@@ -1,8 +1,8 @@
 from app import app, db
 from flask import render_template, flash, redirect, url_for, request
-from app.forms import LoginForm, RegistrationForm
+from app.forms import LoginForm, RegistrationForm, AddItem
 from flask_login import current_user, login_user, logout_user, login_required
-from app.models import User
+from app.models import User, Item
 from werkzeug.urls import url_parse
 
 
@@ -76,3 +76,25 @@ def accounts():
         }
     ]
     return render_template("account.html", title="Accounts", posts=posts)
+
+
+@app.route('/myitems')
+def favor_item():
+    items = {
+            'username': db.session.query(Item.name_author).first(),
+            'name_item': db.session.query(Item.name_item).first(),
+            'description': db.session.query(Item.body).first()
+        }
+    return render_template("items.html", title="Items", items=items)
+
+
+@app.route('/additem', methods=['GET', 'POST'])
+def add_item():
+    form = AddItem()
+    if form.validate_on_submit():
+        item = Item(name_author=current_user.username, name_item=form.name_item.data, body=form.name_body.data)
+        db.session.add(item)
+        db.session.commit()
+        flash("You item added!")
+        return redirect(url_for('favor_item'))
+    return render_template("add_item.html", title="Add Item", form=form)
