@@ -79,6 +79,7 @@ def accounts():
 
 
 @app.route('/myitems')
+@login_required
 def favor_item():
     items = {
             'username': db.session.query(Item.name_author).all(),
@@ -90,6 +91,7 @@ def favor_item():
 
 
 @app.route('/additem', methods=['GET', 'POST'])
+@login_required
 def add_item():
     form = AddItem()
     if form.validate_on_submit():
@@ -102,6 +104,7 @@ def add_item():
 
 
 @app.route('/delete', methods=['GET', 'POST'])
+@login_required
 def delete():
     form = DeleteItem()
     return render_template("delete.html", title="Delete Item", form=form)
