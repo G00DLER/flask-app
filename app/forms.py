@@ -1,7 +1,8 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, BooleanField, SubmitField
+from wtforms import StringField, PasswordField, BooleanField, SubmitField, SelectField
 from wtforms.validators import DataRequired, ValidationError, Email, EqualTo
-from app.models import User
+from app.models import User, Item
+from app import db
 
 
 class LoginForm(FlaskForm):
@@ -33,5 +34,11 @@ class RegistrationForm(FlaskForm):
 class AddItem(FlaskForm):
     name_item = StringField('Item Name', validators=[DataRequired()])
     name_body = StringField('Description', validators=[DataRequired()])
+    submit = SubmitField('Submit')
+
+
+class DeleteItem(FlaskForm):
+    choices = [1, 2, 3, 4, 5]
+    select = SelectField('Select Item', validators=[DataRequired()], choices=choices)
     submit = SubmitField('Submit')
 

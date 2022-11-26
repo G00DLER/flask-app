@@ -3,7 +3,7 @@
 {% block app_content %}
     <div class="d-grid gap-2 col-6 mx-auto" align="right">
         <a href="{{ url_for('add_item') }}" class="btn btn-primary enabled" tabindex="-1" role="button" aria-disabled="true">Add Item</a>
-        <a href="#" class="btn btn-primary enabled" tabindex="-1" role="button" aria-disabled="true">Delete</a>
+        <a href="{{ url_for('delete') }}" class="btn btn-primary enabled" tabindex="-1" role="button" aria-disabled="true">Delete</a>
     </div><br>
 
 <table class="table table-bordered">
@@ -14,15 +14,14 @@
         <th scope="col">Description</th>
         </tr>
     </thead>
+    {% for data in itmds %}
     <tbody>
-        {% for item in items %}
         <tr>
-            <td>{{ items.username }}</td>
-            <td>{{ items.name_item }}</td>
-            <td>{{ items.description }}</td>
+            <td>{{ data.name_author }}</td>
+            <td>{{ data.name_item }}</td>
+            <td>{{ data.body }}</td>
         </tr>
-        {% endfor %}
     </tbody>
+    {% endfor %}
 </table>
-
 {% endblock %}

@@ -1,6 +1,6 @@
 from app import app, db
 from flask import render_template, flash, redirect, url_for, request
-from app.forms import LoginForm, RegistrationForm, AddItem
+from app.forms import LoginForm, RegistrationForm, AddItem, DeleteItem
 from flask_login import current_user, login_user, logout_user, login_required
 from app.models import User, Item
 from werkzeug.urls import url_parse
@@ -81,11 +81,12 @@ def accounts():
 @app.route('/myitems')
 def favor_item():
     items = {
-            'username': db.session.query(Item.name_author).first(),
-            'name_item': db.session.query(Item.name_item).first(),
-            'description': db.session.query(Item.body).first()
+            'username': db.session.query(Item.name_author).all(),
+            'name_item': db.session.query(Item.name_item).all(),
+            'description': db.session.query(Item.body).all()
         }
-    return render_template("items.html", title="Items", items=items)
+    itmds = Item.query.all()
+    return render_template("items.html", title="Items", items=items, itmds=itmds)
 
 
 @app.route('/additem', methods=['GET', 'POST'])
@@ -98,3 +99,9 @@ def add_item():
         flash("You item added!")
         return redirect(url_for('favor_item'))
     return render_template("add_item.html", title="Add Item", form=form)
+
+
+@app.route('/delete', methods=['GET', 'POST'])
+def delete():
+    form = DeleteItem()
+    return render_template("delete.html", title="Delete Item", form=form)
