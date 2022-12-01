@@ -61,17 +61,7 @@ def contact():
 @app.route('/accounts')
 @login_required
 def accounts():
-    posts = [
-        {
-            'user': {'username': 'Nikita'},
-        },
-        {
-            'user': {'username': 'Roman'}
-        },
-        {
-            'user': {'username': 'Ninja'},
-        }
-    ]
+    posts = User.query.all()
     return render_template("account.html", title="Accounts", posts=posts)
 
 
