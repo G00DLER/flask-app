@@ -41,3 +41,11 @@ class DeleteItem(FlaskForm):
     select = SelectField('Select Item', validators=[DataRequired()], choices=choices)
     submit = SubmitField('Submit')
 
+
+class HelpUser(FlaskForm):
+    otdel = SelectField('Where to send the question?', validators=[DataRequired()], choices=[
+        "Technical support",
+        "Director's mail"
+    ])
+    question = StringField('Ask your question', validators=[DataRequired()])
+    submit = SubmitField('Submit')

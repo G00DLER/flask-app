@@ -1,6 +1,6 @@
 from app import app, db
 from flask import render_template, flash, redirect, url_for, request
-from app.forms import LoginForm, RegistrationForm, AddItem, DeleteItem
+from app.forms import LoginForm, RegistrationForm, AddItem, DeleteItem, HelpUser
 from flask_login import current_user, login_user, logout_user, login_required
 from app.models import User, Item
 from werkzeug.urls import url_parse
@@ -66,10 +66,7 @@ def accounts():
             'user': {'username': 'Nikita'},
         },
         {
-            'user': {'username': 'Darya'},
-        },
-        {
-            'user': {'username': 'Maxim'}
+            'user': {'username': 'Roman'}
         },
         {
             'user': {'username': 'Ninja'},
@@ -81,13 +78,8 @@ def accounts():
 @app.route('/myitems')
 @login_required
 def favor_item():
-    items = {
-            'username': db.session.query(Item.name_author).all(),
-            'name_item': db.session.query(Item.name_item).all(),
-            'description': db.session.query(Item.body).all()
-        }
     itmds = Item.query.all()
-    return render_template("items.html", title="Items", items=items, itmds=itmds)
+    return render_template("items.html", title="Items", itmds=itmds)
 
 
 @app.route('/additem', methods=['GET', 'POST'])
@@ -108,3 +100,13 @@ def add_item():
 def delete():
     form = DeleteItem()
     return render_template("delete.html", title="Delete Item", form=form)
+
+
+@app.route('/help', methods=['GET', 'POST'])
+@login_required
+def helpme():
+    form = HelpUser()
+    if form.validate_on_submit():
+        flash('Your question has been sent, expect an answer by mail within 24 hours.')
+        return redirect(url_for('index'))
+    return render_template("help.html", title='Help', form=form)
